@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package painter;
+package paintclone;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +15,12 @@ import javafx.stage.Stage;
  *
  * @author Dan
  */
-public class Painter extends Application {
+public class PaintClone extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        PaintCloneUIController.getStage(stage);
+        Parent root = FXMLLoader.load(getClass().getResource("PaintCloneUI.fxml"));
         
         Scene scene = new Scene(root);
         

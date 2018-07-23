@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paintclone.PaintCloneUIController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar fx:id="menuBar" accessibleRole="IMAGE_VIEW">
+              
+            </MenuBar>
+            <HBox />
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ColorPicker fx:id="colourPicker" />
+            <Slider fx:id="sizeSlider" prefHeight="18.0" prefWidth="100.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Slider>
+            <Label fx:id="labelSize" text="Size: 10" />
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="toolID" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <StackPane fx:id="stack" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
+            <Canvas fx:id="canvas" accessibleRole="IMAGE_VIEW" />
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>
