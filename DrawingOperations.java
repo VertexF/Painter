@@ -46,6 +46,20 @@ public class DrawingOperations {
 
         }
         });
+
+        canvas.setOnMouseClicked(e -> {
+        if(size != 0)
+        {
+            double x = e.getX() - size / 2;
+            double y = e.getY() - size / 2;
+            
+            if(toolID.getText().equals("Brush"))
+            {
+                graphicContext.setFill(colourPicker.getValue());
+                graphicContext.fillRoundRect(x, y, size, size, size, size);
+            }
+        }
+        });
     }
     
     public void setSize(double s)
