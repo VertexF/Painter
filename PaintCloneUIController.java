@@ -49,7 +49,7 @@ public class PaintCloneUIController implements Initializable {
     
     private static Stage mainStage;
     boolean toolSelected = true;
-    private double size = 10.0;
+    private double size;
     private FileHandling fileHandling;
     private NewCanvas setNewCanvas;
     private GraphicsContext graphicContext;
@@ -108,11 +108,12 @@ public class PaintCloneUIController implements Initializable {
         sizeSlider.setBlockIncrement(10);
         
         sizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-        @Override
+            @Override
             public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val)
             {
                 size = new_val.doubleValue();
                 labelSize.setText("Size: " + String.format("%.2f", new_val));
+                draw.setSize(size);
             }
 
         });

@@ -15,10 +15,10 @@ import javafx.scene.control.Label;
  * @author Dan
  */
 public class DrawingOperations {
+    private double size;
     private static GraphicsContext graphicContext;
     
     boolean toolSelected = true;
-    private double size = 10.0;
     
     public static void setContext(GraphicsContext con)
     {
@@ -43,7 +43,14 @@ public class DrawingOperations {
                 graphicContext.setFill(colourPicker.getValue());
                 graphicContext.fillRoundRect(x, y, size, size, size, size);
             }
+            
+            System.out.println(size);
         }
         });
-    } 
+    }
+    
+    public void setSize(double s)
+    {
+        size = s;
+    }
 }
