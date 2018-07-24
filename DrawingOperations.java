@@ -15,20 +15,19 @@ import javafx.scene.control.Label;
  * @author Dan
  */
 public class DrawingOperations {
-    private double size;
     private static GraphicsContext graphicContext;
     
     boolean toolSelected = true;
+    private double size;
     
     public static void setContext(GraphicsContext con)
     {
         graphicContext = con;
-	size = 10.0;
     }
     
     public DrawingOperations()
     {
-        
+        size = 10.0;
     }
     
     public void draw(Canvas canvas, Label toolID, ColorPicker colourPicker)
