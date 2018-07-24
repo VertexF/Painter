@@ -43,8 +43,7 @@ public class DrawingOperations {
                 graphicContext.setFill(colourPicker.getValue());
                 graphicContext.fillRoundRect(x, y, size, size, size, size);
             }
-            
-            System.out.println(size);
+
         }
         });
     }
