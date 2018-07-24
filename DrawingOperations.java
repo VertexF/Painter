@@ -23,6 +23,7 @@ public class DrawingOperations {
     public static void setContext(GraphicsContext con)
     {
         graphicContext = con;
+	size = 10.0;
     }
     
     public DrawingOperations()
