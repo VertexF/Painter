@@ -5,8 +5,9 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -46,8 +47,15 @@
    <center>
       <StackPane fx:id="stack" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
-            <Canvas fx:id="canvas" accessibleRole="IMAGE_VIEW" />
+            <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane fx:id="scrollAnchor" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <Canvas fx:id="canvas" accessibleRole="IMAGE_VIEW" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
       </StackPane>
    </center>

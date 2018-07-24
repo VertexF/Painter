@@ -24,6 +24,7 @@ public class NewCanvas {
     
     private int width;
     private int height;
+    private boolean answer;
     
     private GridPane grid;
     private Label labelTitle;
@@ -104,8 +105,9 @@ public class NewCanvas {
         alert.setScene(scene);
     }
     
-    public void display()
+    public boolean display()
     {
+        
         /**Note: You can't Lambda with elements instances as members of a class*/
         yesButton.setOnAction(e -> 
         {
@@ -114,6 +116,7 @@ public class NewCanvas {
                 width = Integer.parseInt(widthTextField.getText());
                 height = Integer.parseInt(heightTextField.getText());
                 window.hide();
+                answer = true;
             }
             else
             {
@@ -124,10 +127,13 @@ public class NewCanvas {
         noButton.setOnAction(e ->         
         {
             window.hide();
+            answer = false;
         });
 
         /**This displays the window before you return is needs to be closed**/
         window.showAndWait();
+        
+        return answer;
     }
     
     /**Makes sure the user input is an int*/

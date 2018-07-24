@@ -5,38 +5,26 @@
  */
 package paintclone;
 
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -56,10 +44,8 @@ public class PaintCloneUIController implements Initializable {
     private Slider sizeSlider;
     @FXML
     private Label labelSize;
-    //@FXML
-    //private Button undo;
     @FXML
-    private BorderPane borderPane;
+    private AnchorPane scrollAnchor;
     
     private static Stage mainStage;
     boolean toolSelected = true;
@@ -84,8 +70,10 @@ public class PaintCloneUIController implements Initializable {
         Menu fileMenu = new Menu("File");
         MenuItem newCanvas = new MenuItem("New...");
         newCanvas.setOnAction( e -> {
-           setNewCanvas.display();
-           updateCanvas(setNewCanvas.getWight(), setNewCanvas.getHeight());
+            if(setNewCanvas.display())
+            {
+                resetCanvas(setNewCanvas.getWight(), setNewCanvas.getHeight());
+            }
         });
         MenuItem open = new MenuItem("Open...");
         open.setOnAction( e -> {
@@ -131,23 +119,22 @@ public class PaintCloneUIController implements Initializable {
         
         draw.draw(canvas, toolID, colourPicker);
         
-        //undoImage.loadImageOnStack(canvas, brushTool);
-        //undoImage.undoAction(brushTool, undo);
         
         menuBar.getMenus().addAll(fileMenu, toolMenu);
     }
     
-    private void updateCanvas(int width, int height)
+    private void resetCanvas(int width, int height)
     {
         canvas.setWidth(width);
         canvas.setHeight(height);
         
-        graphicContext.clearRect(0, 0, width, height);
-        graphicContext.setStroke(Color.BLACK);
-        graphicContext.strokeRect(1, 1, width - 1, height - 1);
+        graphicContext.setFill(Color.WHITE);
+        graphicContext.fillRect(0, 0, width, height);
         
-        borderPane.getCenter().prefWidth(width + 20);
-        borderPane.getCenter().prefHeight(height + 20);
+        scrollAnchor.setMinSize(width, height);
+        scrollAnchor.setPrefSize(width, height);
+        scrollAnchor.prefHeight(height);
+        scrollAnchor.prefWidth(width);
         
         if((mainStage.getWidth() - 50) < width){
         mainStage.setWidth(width + 100);
