@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paintclone;
 
 import java.awt.image.BufferedImage;
@@ -19,13 +14,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
-/**
- *
+/*
  * @author Dan
  */
 public class FileHandling {
     
-    private Stage mainStage;
+    private final Stage mainStage;
     
     public FileHandling()
     {
@@ -52,7 +46,6 @@ public class FileHandling {
             } 
             catch (IOException ex)
             {
-                //Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("File did not save");
             }
         }

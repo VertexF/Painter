@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paintclone;
 
 import java.net.URL;
@@ -15,14 +10,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -39,13 +29,25 @@ public class PaintCloneUIController implements Initializable {
     @FXML
     private ColorPicker colourPicker;
     @FXML
-    private MenuBar menuBar;
-    @FXML
     private Slider sizeSlider;
     @FXML
     private Label labelSize;
     @FXML
     private AnchorPane scrollAnchor;
+    @FXML
+    private MenuItem newMenuItem;
+    @FXML
+    private MenuItem openMenuItem;
+    @FXML
+    private MenuItem saveAsMenuItem;
+    @FXML
+    private MenuItem exitMenuItem;
+    @FXML
+    private MenuItem undoMenuItem;
+    @FXML
+    private MenuItem redoMenuItem;
+    @FXML
+    private MenuItem brushMenuItem;
     
     private static Stage mainStage;
     private double size;
@@ -53,74 +55,58 @@ public class PaintCloneUIController implements Initializable {
     private NewCanvas setNewCanvas;
     private GraphicsContext graphicContext;
     private DrawBoard drawBoard;
-    //private Undo undoImage;
     private boolean isCanvasCreated;
     private BrushOperation brushOp;
-    
-    private DrawingOperation draw;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         graphicContext = canvas.getGraphicsContext2D();
-        drawBoard = new DrawBoard();
-        drawBoard.setContext(graphicContext);
         fileHandling = new FileHandling();
         setNewCanvas = new NewCanvas();
-        brushOp = new BrushOperation(colourPicker);
         isCanvasCreated = false;
         
         toolID.setText("Brush");
         
-        Menu fileMenu = new Menu("File");
-        MenuItem newCanvas = new MenuItem("New...");
-        newCanvas.setOnAction( e -> {
+        canvas.setOnMousePressed(e -> {
+            drawBoard.addDrawOperation(brushOp, graphicContext);
+        });
+        
+        newMenuItem.setOnAction( e -> {
             if(setNewCanvas.display())
             {
                 resetCanvas(setNewCanvas.getWight(), setNewCanvas.getHeight());
+                brushOp = new BrushOperation(colourPicker);
+                drawBoard = new DrawBoard();
+                drawBoard.addDrawOperation(brushOp, graphicContext);
                 isCanvasCreated = true;
             }
         });
-        MenuItem open = new MenuItem("Open...");
-        open.setOnAction( e -> {
+        
+        openMenuItem.setOnAction( e -> {
             fileHandling.loadFile(canvas, graphicContext);
         });
-        MenuItem save = new MenuItem("Save...");
-        save.setOnAction( e -> {
+
+        saveAsMenuItem.setOnAction( e -> {
             fileHandling.saveFile(canvas);
         });
         MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction( e -> {
+        exitMenuItem.setOnAction( e -> {
             System.exit(0);
         });
-        fileMenu.getItems().add(newCanvas);
-        fileMenu.getItems().add(new SeparatorMenuItem());
-        fileMenu.getItems().add(open);
-        fileMenu.getItems().add(save);
-        fileMenu.getItems().add(new SeparatorMenuItem());
-        fileMenu.getItems().add(exit);
         
-        Menu editMenu = new Menu("Edit");
-        MenuItem undo = new MenuItem("Undo");
-        undo.setOnAction( e -> {
+        undoMenuItem.setOnAction( e -> {
             if(isCanvasCreated)
-                drawBoard.undo();
+                drawBoard.undo(graphicContext);
         });
-        MenuItem redo = new MenuItem("Redo");
-        redo.setOnAction( e -> {
+
+        redoMenuItem.setOnAction( e -> {
             if(isCanvasCreated)
-                drawBoard.redo();
+                drawBoard.redo(graphicContext);
         });
-        
-        editMenu.getItems().add(undo);
-        editMenu.getItems().add(redo);
-        
-        Menu toolMenu = new Menu("Tools");
-        MenuItem brush = new MenuItem("Brush");
-        brush.setOnAction( e -> {
+
+        brushMenuItem.setOnAction( e -> {
             toolID.setText("Brush");
         });
-        
-        toolMenu.getItems().add(brush);
         
         sizeSlider.setMin(0);
         sizeSlider.setMax(100);
@@ -138,11 +124,6 @@ public class PaintCloneUIController implements Initializable {
 
         });
 
-        menuBar.getMenus().addAll(fileMenu, editMenu, toolMenu);
-        
-        canvas.setOnMousePressed(e -> {
-            drawBoard.addDrawOperation(brushOp);
-        });
     }
     
     private void resetCanvas(int width, int height)

@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paintclone;
 
 import java.awt.image.BufferedImage;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -27,15 +20,17 @@ public class BrushOperation implements DrawingOperation {
     double x;
     double y;
     Image image;
+    private boolean oneImage;
     
     public BrushOperation(ColorPicker col)
     {
         size = 10.0;
         colours = col;
+        oneImage = false;
     }
     
     @Override
-    public Image draw(GraphicsContext graphicContext)
+    public void draw(GraphicsContext graphicContext)
     {
         graphicContext.getCanvas().setOnMouseDragged( e -> {
         if(size != 0)
@@ -59,13 +54,16 @@ public class BrushOperation implements DrawingOperation {
             graphicContext.fillRoundRect(x, y, size, size, size, size);
         }
         });
-        
-        Canvas can = graphicContext.getCanvas();
-        
-        WritableImage writableImage = new WritableImage((int) can.getWidth(), (int) can.getHeight());
+
+    }
+    
+    @Override
+    public Image getImage(GraphicsContext graphicContext)
+    {
+        WritableImage writableImage = new WritableImage((int)  graphicContext.getCanvas().getWidth(), (int)  graphicContext.getCanvas().getHeight());
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
-        can.snapshot(params, writableImage);
+        graphicContext.getCanvas().snapshot(params, writableImage);
         BufferedImage canvasImage = SwingFXUtils.fromFXImage(writableImage, null);
         image = SwingFXUtils.toFXImage(canvasImage, null);
         
