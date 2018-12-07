@@ -1,0 +1,10 @@
+#brushMenuItem
+{
+    -fx-image: url("../res/bruchIcon.png");
+    -fx-background-image: url("../res/bruchIcon.png");
+}
+
+#buttonTest
+{
+    -fx-background-image: url("../res/bruchIcon.png");
+}

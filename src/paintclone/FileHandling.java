@@ -29,6 +29,8 @@ public class FileHandling {
     public void saveFile(Canvas canvas)
     {
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a file (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(filter);
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(mainStage);
         
@@ -54,6 +56,8 @@ public class FileHandling {
     public void loadFile(Canvas canvas, GraphicsContext brushTool)
     {
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a file (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(filter);
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showOpenDialog(mainStage);
         

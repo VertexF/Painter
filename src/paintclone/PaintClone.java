@@ -19,7 +19,7 @@ public class PaintClone extends Application {
         
         try
         {   
-            Image icon = new Image("file:./res/brushIcon.png");
+            Image icon = new Image("file:./ress/brushIcon.png");
             stage.getIcons().add(icon);
         }
         catch(Exception e)

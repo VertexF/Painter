@@ -89,7 +89,7 @@ public class PaintCloneUIController implements Initializable {
         saveAsMenuItem.setOnAction( e -> {
             fileHandling.saveFile(canvas);
         });
-        MenuItem exit = new MenuItem("Exit");
+        
         exitMenuItem.setOnAction( e -> {
             System.exit(0);
         });
